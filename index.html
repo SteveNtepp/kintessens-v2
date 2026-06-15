@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINTESSENS LIVE V2.0 — Note Stratégique Conseil d'Administration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A192F;
+    --navy-mid: #172A45;
+    --navy-light: #1E3A5F;
+    --orange: #FF6B35;
+    --orange-dark: #E65F2B;
+    --bg: #F8F9FA;
+    --white: #FFFFFF;
+    --text: #333333;
+    --text-light: #5A6A7A;
+    --border: #E2E8F0;
+    --accent-bg: #FFF5F0;
+    --sidebar-w: 260px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--navy);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: var(--orange) var(--navy-mid);
+  }
+
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: var(--navy-mid); }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sidebar-logo .brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.3;
+  }
+
+  .sidebar-logo .brand span { color: var(--orange); }
+
+  .sidebar-logo .tag {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .sidebar-nav { padding: 16px 0; flex: 1; }
+
+  .nav-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 12px 24px 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    line-height: 1.3;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--white);
+    background: rgba(255,107,53,0.12);
+    border-left-color: var(--orange);
+  }
+
+  .nav-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--orange);
+    min-width: 18px;
+    opacity: 0.8;
+  }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  #header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0d2240 100%);
+    padding: 70px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange) 0%, transparent 100%);
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+
+  .header-badge {
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.3);
+    color: var(--orange);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 30px;
+  }
+
+  .header-info {
+    text-align: right;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .header-info strong { color: rgba(255,255,255,0.7); }
+
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+
+  #header h1 span { color: var(--orange); }
+
+  #header .subtitle {
+    color: rgba(255,255,255,0.55);
+    font-size: 15px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    max-width: 550px;
+    line-height: 1.6;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 60px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(10,25,47,0.07);
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .section-title-wrap { flex: 1; }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .section h2 {
+    font-size: 26px;
+    color: var(--navy);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .section h3 {
+    font-size: 17px;
+    color: var(--navy-mid);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .section h4 {
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(10,25,47,0.07);
+    padding: 28px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 28px rgba(10,25,47,0.12);
+    transform: translateY(-2px);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .card-grid-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    border-left: 4px solid var(--orange);
+    background: var(--accent-bg);
+    padding: 18px 22px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange-dark);
+    margin-bottom: 6px;
+  }
+
+  .callout p { color: var(--navy-mid); font-size: 13.5px; }
+
+  /* ===== KPI HIGHLIGHTS ===== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(10,25,47,0.07);
+    padding: 22px 20px;
+    text-align: center;
+    transition: all 0.25s ease;
+    border-top: 3px solid var(--orange);
+  }
+
+  .kpi-card:hover {
+    box-shadow: 0 6px 20px rgba(255,107,53,0.15);
+    transform: translateY(-2px);
+  }
+
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .kpi-value.orange { color: var(--orange); }
+
+  .kpi-label {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+
+  /* ===== TABLES ===== */
+  .table-wrap { overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 12px rgba(10,25,47,0.07); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    font-size: 13px;
+  }
+
+  table thead tr { background: var(--navy); }
+  table thead th {
+    color: var(--white);
+    font-weight: 600;
+    padding: 14px 18px;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  table thead th:first-child { border-radius: 8px 0 0 0; }
+  table thead th:last-child { border-radius: 0 8px 0 0; }
+
+  table tbody tr:nth-child(even) { background: #f5f7fa; }
+  table tbody tr:hover { background: #eef2f8; }
+
+  table tbody td {
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  table tbody tr:last-child td { border-bottom: none; }
+
+  .td-label {
+    font-weight: 600;
+    color: var(--navy-mid);
+  }
+
+  .td-highlight {
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--orange), var(--navy-light));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 12px; height: 12px;
+    background: var(--orange);
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--orange);
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .timeline-content h4 { margin-bottom: 4px; font-size: 13.5px; }
+  .timeline-content p { font-size: 12.5px; color: var(--text-light); margin-bottom: 0; }
+
+  /* ===== ACTE BLOCKS ===== */
+  .actes-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(10,25,47,0.1); }
+
+  .acte-block { padding: 28px 24px; }
+
+  .acte-block:nth-child(1) { background: var(--navy-mid); }
+  .acte-block:nth-child(2) { background: var(--orange); }
+  .acte-block:nth-child(3) { background: var(--navy); }
+
+  .acte-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .acte-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .acte-time {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .acte-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.85);
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .acte-item::before {
+    content: '→';
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== ARCHETYPE GRID ===== */
+  .archetype-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .archetype-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(10,25,47,0.07);
+    padding: 24px;
+    border-top: 3px solid;
+    transition: all 0.25s ease;
+  }
+
+  .archetype-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,25,47,0.12); }
+  .archetype-card:nth-child(1) { border-top-color: var(--navy); }
+  .archetype-card:nth-child(2) { border-top-color: var(--orange); }
+  .archetype-card:nth-child(3) { border-top-color: #2E86AB; }
+  .archetype-card:nth-child(4) { border-top-color: #28A745; }
+
+  .archetype-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .archetype-role {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+
+  .archetype-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .archetype-desc { font-size: 12.5px; color: var(--text-light); line-height: 1.6; }
+
+  /* ===== PRICING CARDS ===== */
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  .pricing-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(10,25,47,0.08);
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+
+  .pricing-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(10,25,47,0.14); }
+
+  .pricing-header {
+    background: var(--navy);
+    padding: 20px 22px;
+    color: var(--white);
+  }
+
+  .pricing-header.vip { background: linear-gradient(135deg, var(--navy) 0%, var(--orange-dark) 100%); }
+
+  .pricing-tier { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; font-weight: 600; }
+  .pricing-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); font-weight: 700; margin-bottom: 2px; }
+  .pricing-price { font-size: 28px; font-weight: 700; color: var(--orange); font-family: 'Playfair Display', serif; }
+  .pricing-price span { font-size: 13px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif; font-weight: 400; }
+
+  .pricing-body { padding: 20px 22px; }
+
+  .pricing-feature {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .pricing-feature .check { color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+  /* ===== DOTATION CARDS ===== */
+  .dotation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .dotation-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(10,25,47,0.08);
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+
+  .dotation-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,25,47,0.12); }
+
+  .dotation-header {
+    background: var(--navy-mid);
+    padding: 20px 24px;
+  }
+
+  .dotation-header.orange-bg { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+
+  .dotation-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+
+  .dotation-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); font-weight: 700; margin-bottom: 8px; }
+  .dotation-amount { font-size: 30px; font-weight: 900; color: rgba(255,255,255,0.95); font-family: 'Playfair Display', serif; }
+  .dotation-amount small { font-size: 13px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif; font-weight: 400; }
+
+  .dotation-body { padding: 22px 24px; }
+
+  .dotation-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; font-size: 13px; border-bottom: 1px dashed var(--border); padding-bottom: 10px; }
+  .dotation-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .dotation-row-label { color: var(--text-light); }
+  .dotation-row-value { font-weight: 700; color: var(--navy); }
+
+  .dotation-advantage {
+    margin-top: 16px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--orange);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 12.5px;
+    color: var(--navy-mid);
+  }
+
+  /* ===== IMPACT TABS ===== */
+  .tabs-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--navy); }
+  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ===== DRAGNET STRATEGY ===== */
+  .dragnet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .dragnet-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(10,25,47,0.07);
+    padding: 24px;
+    border-left: 4px solid var(--navy-light);
+    transition: all 0.25s ease;
+  }
+
+  .dragnet-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(10,25,47,0.1); }
+
+  .dragnet-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: rgba(10,25,47,0.06);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  /* ===== ENGAGEMENT STEPS ===== */
+  .steps-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .step-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: var(--white);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(10,25,47,0.07);
+    transition: all 0.25s ease;
+  }
+
+  .step-item:hover { box-shadow: 0 6px 20px rgba(10,25,47,0.1); }
+
+  .step-badge {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .step-content h4 { font-size: 14.5px; color: var(--navy); margin-bottom: 6px; }
+  .step-content p { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-bottom: 0; }
+
+  /* ===== BENCHMARK PILLARS ===== */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .pillar {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(10,25,47,0.07);
+    padding: 26px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(255,107,53,0.07), transparent);
+    pointer-events: none;
+  }
+
+  .pillar:hover { box-shadow: 0 8px 24px rgba(10,25,47,0.12); transform: translateY(-2px); }
+
+  .pillar-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: rgba(255,107,53,0.15); line-height: 1; margin-bottom: 6px; }
+  .pillar h3 { font-size: 16px; color: var(--navy); margin-bottom: 12px; }
+  .pillar p { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-bottom: 10px; }
+
+  .pillar-insight {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    color: var(--orange-dark);
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* ===== TV FORMAT ===== */
+  .tv-timeline {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 8px;
+  }
+
+  .tv-bar {
+    display: flex;
+    height: 48px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .tv-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.2;
+    transition: filter 0.2s ease;
+  }
+
+  .tv-seg:hover { filter: brightness(1.15); }
+
+  .tv-seg-1 { width: 5.8%; background: #2E4057; }
+  .tv-seg-2 { width: 38.4%; background: var(--navy-light); }
+  .tv-seg-3 { width: 9.6%; background: var(--orange); }
+  .tv-seg-4 { width: 42.3%; background: #1A3A5C; }
+  .tv-seg-5 { width: 3.9%; background: #2E4057; }
+
+  .tv-legend { display: flex; flex-direction: column; gap: 10px; }
+
+  .tv-legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tv-legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .tv-legend-item .time { font-size: 11px; font-weight: 700; color: var(--orange); min-width: 80px; }
+  .tv-legend-item .desc { font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.4; }
+
+  /* ===== IMPACT ITEMS ===== */
+  .impact-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+  .impact-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .impact-dot {
+    width: 6px; height: 6px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* ===== CONCLUSION ===== */
+  #conclusion {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    padding: 70px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #conclusion::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  #conclusion h2 {
+    font-size: 30px;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  #conclusion p { color: rgba(255,255,255,0.7); font-size: 14.5px; line-height: 1.8; margin-bottom: 18px; max-width: 800px; }
+
+  .conclusion-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .conclusion-pillar {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 22px;
+    border-top: 3px solid var(--orange);
+    transition: all 0.25s ease;
+  }
+
+  .conclusion-pillar:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+  .conclusion-pillar-icon { font-size: 22px; margin-bottom: 10px; }
+  .conclusion-pillar h4 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 15px; margin-bottom: 8px; }
+  .conclusion-pillar p { font-size: 12.5px; color: rgba(255,255,255,0.55); margin-bottom: 0; max-width: 100%; line-height: 1.6; }
+
+  /* ===== LEGAL FOOTER ===== */
+  .legal-footer {
+    background: #06111F;
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .legal-footer .firm { font-family: 'Playfair Display', serif; font-size: 13px; color: rgba(255,255,255,0.4); }
+  .legal-footer .disclaimer { font-size: 11px; color: rgba(255,255,255,0.2); max-width: 540px; line-height: 1.5; }
+
+  /* ===== UTILITY ===== */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .mb-6 { margin-bottom: 6px; }
+  .mb-10 { margin-bottom: 10px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+
+  .label-tag {
+    display: inline-block;
+    background: rgba(10,25,47,0.07);
+    color: var(--navy-mid);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .label-tag.orange { background: rgba(255,107,53,0.1); color: var(--orange-dark); }
+
+  ul.styled-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  ul.styled-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+  ul.styled-list li::before {
+    content: '▸';
+    color: var(--orange);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--orange) 0%, transparent 60%);
+    margin: 32px 0;
+  }
+
+  /* ===== AUDIO PLAYER ===== */
+  #audio-brief {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, #0d2240 100%);
+    padding: 40px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .audio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .audio-icon-wrap {
+    flex-shrink: 0;
+    width: 64px; height: 64px;
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .audio-icon-wrap svg {
+    width: 28px; height: 28px;
+    fill: var(--orange);
+  }
+
+  .audio-meta { flex: 1; }
+
+  .audio-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .audio-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .audio-desc {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  .audio-player-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Custom audio player */
+  audio {
+    display: none;
+  }
+
+  .custom-player {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+
+  .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .play-btn {
+    width: 44px; height: 44px;
+    background: var(--orange);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(255,107,53,0.35);
+  }
+
+  .play-btn:hover { background: var(--orange-dark); transform: scale(1.06); }
+
+  .play-btn svg { width: 18px; height: 18px; fill: white; }
+
+  .time-display {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    min-width: 90px;
+    letter-spacing: 0.5px;
+  }
+
+  .volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .volume-wrap svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.35); flex-shrink: 0; }
+
+  input[type="range"].vol-slider {
+    -webkit-appearance: none;
+    width: 70px;
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"].vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px; height: 12px;
+    background: var(--orange);
+    border-radius: 50%;
+  }
+
+  .progress-wrap {
+    position: relative;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    overflow: visible;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange), #FF9A6C);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+    pointer-events: none;
+  }
+
+  .progress-thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px; height: 12px;
+    background: var(--white);
+    border-radius: 50%;
+    left: 0%;
+    box-shadow: 0 0 6px rgba(255,107,53,0.5);
+    pointer-events: none;
+    transition: left 0.1s linear;
+  }
+
+  @media (max-width: 860px) {
+    #audio-brief { padding: 32px 28px; }
+    .audio-wrapper { flex-direction: column; gap: 20px; }
+    .audio-player-wrap { width: 100%; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    :root { --sidebar-w: 220px; }
+    .card-grid-4 { grid-template-columns: 1fr 1fr; }
+    .actes-grid { grid-template-columns: 1fr; }
+    .conclusion-pillars { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 860px) {
+    :root { --sidebar-w: 0px; }
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .section { padding: 40px 28px; }
+    #header { padding: 40px 28px 36px; }
+    #header h1 { font-size: 28px; }
+    .card-grid-2, .card-grid-3, .two-col, .three-col, .dotation-grid, .archetype-grid, .pillars, .dragnet-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .conclusion-pillars { grid-template-columns: 1fr; }
+    .legal-footer { padding: 24px 28px; }
+    #conclusion { padding: 50px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand"><span>KINTESSENS</span> LIVE</div>
+    <div class="tag">Note Stratégique V2.0</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Présentation</div>
+    <a class="nav-item" href="#header"><span class="nav-num">00</span>Hero</a>
+    <a class="nav-item" href="#audio-brief"><span class="nav-num">▶</span>Brief Audio</a>
+    <a class="nav-item" href="#exec-summary"><span class="nav-num">01</span>Résumé Exécutif</a>
+
+    <div class="nav-section-label" style="margin-top:8px;">Stratégie & Modèle</div>
+    <a class="nav-item" href="#benchmark"><span class="nav-num">02</span>Benchmark AGT</a>
+    <a class="nav-item" href="#direction-artistique"><span class="nav-num">03</span>Direction Artistique</a>
+    <a class="nav-item" href="#jury"><span class="nav-num">04</span>Jury & Gouvernance</a>
+    <a class="nav-item" href="#modele-eco"><span class="nav-num">05</span>Modèle Économique</a>
+
+    <div class="nav-section-label" style="margin-top:8px;">Opérations & Talents</div>
+    <a class="nav-item" href="#sourcing"><span class="nav-num">06</span>Sourcing des Talents</a>
+    <a class="nav-item" href="#engagement"><span class="nav-num">07</span>Engagement Continu</a>
+
+    <div class="nav-section-label" style="margin-top:8px;">Impacts</div>
+    <a class="nav-item" href="#impacts"><span class="nav-num">08</span>Matrice des Impacts</a>
+    <a class="nav-item" href="#conclusion"><span class="nav-num">09</span>Conclusion</a>
+  </div>
+  <div class="sidebar-footer">
+    Cabinet Conseil — Big 4<br>
+    Confidentiel — Conseil de Direction
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main">
+
+  <!-- ===== HEADER ===== -->
+  <section id="header">
+    <div class="header-meta">
+      <div class="header-badge">🔒 Confidentiel — Conseil de Direction</div>
+      <div class="header-info">
+        <strong>Version :</strong> 2.0<br>
+        <strong>Date :</strong> Juin 2026<br>
+        <strong>Statut :</strong> Board-Ready
+      </div>
+    </div>
+    <div class="header-eyebrow">Industries Culturelles & Créatives — Afrique de l'Ouest</div>
+    <h1>KINTESSENS LIVE (V2.0) : <br>Ingrédients Stratégiques, <br><span>Ingénierie Financière</span> et Modèle Média</h1>
+    <p class="subtitle">Note d'orientation stratégique à l'attention du Conseil d'Administration</p>
+  </section>
+
+  <!-- ===== AUDIO BRIEF ===== -->
+  <section id="audio-brief">
+    <div class="audio-wrapper">
+      <div class="audio-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+      </div>
+      <div class="audio-meta">
+        <div class="audio-eyebrow">Brief Audio</div>
+        <div class="audio-title">Synthèse stratégique</div>
+        <div class="audio-desc">KINTESSENS LIVE V2.0 — Résumé audio</div>
+      </div>
+      <div class="audio-player-wrap">
+        <audio id="kintessens-audio" src="KINTESSENS_LIVE_V2.m4a" preload="metadata"></audio>
+        <div class="custom-player">
+          <div class="player-controls">
+            <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-label="Lecture / Pause">
+              <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="time-display" id="timeDisplay">0:00 / --:--</span>
+            <div class="volume-wrap">
+              <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)">
+            </div>
+          </div>
+          <div class="progress-wrap" id="progressWrap" onclick="seekAudio(event)">
+            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-thumb" id="progressThumb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 01. RÉSUMÉ EXÉCUTIF ===== -->
+  <section class="section" id="exec-summary">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Synthèse</div>
+        <h2>Résumé Exécutif</h2>
+      </div>
+    </div>
+
+    <div class="callout mb-32">
+      <div class="callout-label">Pivot Stratégique Majeur</div>
+      <p>KINTESSENS LIVE opère une transformation fondamentale de son modèle d'affaires : de celui d'un opérateur culturel physique à Dakar, il évolue vers une <strong>franchise média "Asset-Light"</strong> et un <strong>incubateur phygital de talents pluridisciplinaires</strong> à vocation panafricaine. Ce pivot capitalise sur l'ingénierie narrative et financière des grands formats de divertissement internationaux (America's Got Talent) tout en ancrant l'exécution dans les réalités économiques, juridiques et culturelles de l'Afrique de l'Ouest.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-value">7</div>
+        <div class="kpi-label">Événements physiques par saison (Lives)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value orange">5–6</div>
+        <div class="kpi-label">Semaines entre chaque Live (cadence stratégique)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">52 min</div>
+        <div class="kpi-label">Format TV premium produit par édition</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value orange">10 mois</div>
+        <div class="kpi-label">Visibilité annuelle pour les sponsors B2B</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">5M FCFA</div>
+        <div class="kpi-label">Grand Prix — Dotation lissée (autofinancée)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value orange">10%</div>
+        <div class="kpi-label">Split Solidaire prélevé sur chaque billet</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="two-col">
+      <div>
+        <h3>Piliers du Modèle Économique</h3>
+        <ul class="styled-list">
+          <li><strong>B2C — Yield Management :</strong> Billetterie segmentée en trois niveaux tarifaires (5 000 / 15 000 / 50 000 FCFA), couvrant les coûts de production avec un financement circulaire de la solidarité intégré.</li>
+          <li><strong>B2B — Sponsoring Pluriannuel :</strong> Packages de partenariat annuels (Naming du Grand Prix à 5 M FCFA, exclusivité de la séquence "L'Impulsion"), offrant une visibilité continue sur 10 mois de l'année.</li>
+          <li><strong>F&B Asset-Light :</strong> Modèle de Revenue Sharing (15% à 30% du CA bar/restauration) sans investissement en stock ni risque logistique pour KINTESSENS, générant une marge nette pure.</li>
+          <li><strong>Monétisation Média :</strong> Licence de droits de diffusion TV panafricains (Canal+ Afrique, RTS, TFM) et monétisation AdSense YouTube ciblant la diaspora africaine à forte valeur.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Proposition de Valeur Stratégique</h3>
+        <ul class="styled-list">
+          <li><strong>Autofinancement de la Dotation :</strong> La récompense de 5 M FCFA est lissée sur 12 à 24 mois, réduisant la charge de trésorerie mensuelle à 150 000–200 000 FCFA — couverte par les revenus F&B d'un seul Live.</li>
+          <li><strong>Propriété Intellectuelle (IP) Saisonnalisée :</strong> Chaque saison génère un catalogue d'actifs immatériels de plus de 6 heures de contenu TV et des dizaines d'heures de rushs exclusifs monétisables à long terme.</li>
+          <li><strong>Verrouillage du Vivier de Talents :</strong> Clause de First-Refusal systématique sur le management et la propriété exclusive des Masters audio-vidéo, sécurisant le pipeline artistique face à la concurrence.</li>
+          <li><strong>Impact Circulaire & RSE :</strong> 10% de chaque billet physique financent automatiquement l'accès aux publics vulnérables, transformant la solidarité en mécanique mesurable et traçable pour les partenaires institutionnels.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 02. BENCHMARK AGT ===== -->
+  <section class="section" id="benchmark">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Analyse Comparative Sectorielle</div>
+        <h2>Benchmark Stratégique — America's Got Talent (AGT)</h2>
+      </div>
+    </div>
+
+    <p class="mb-24">L'analyse comparative du modèle AGT révèle que la force du format réside non pas dans la technologie, mais dans une <strong>ingénierie contractuelle, financière et événementielle ultra-rigoureuse</strong>. La transposition au contexte ouest-africain de KINTESSENS repose sur quatre piliers fondamentaux, adaptés aux réalités du marché de Dakar et de la sous-région.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>L'Ingénierie Financière — Le "Lump Sum" Inversé</h3>
+        <p>AGT exploite "l'illusion du million de dollars" versé sur 40 ans pour préserver sa trésorerie. KINTESSENS transpose cette logique à la dotation artistique et au module Solidarité : au lieu d'un versement unique de 5 M FCFA, la récompense est restructurée en <strong>subvention d'accompagnement mensuelle lissée</strong> sur 12 à 24 mois.</p>
+        <p>Ce mécanisme préserve le plan de trésorerie de la structure, crée une relation de dépendance saine et continue avec l'artiste lauréat, et offre aux partenaires institutionnels une traçabilité mathématique de l'impact social de leur investissement.</p>
+        <div class="pillar-insight">➔ Charge mensuelle réduite à 150 000–200 000 FCFA vs. 5 M FCFA en sortie unique</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>Le Pipeline de Spectacles à Forte Marge — La "Résidence Dakaroise"</h3>
+        <p>AGT ne vit pas de la vente d'albums, mais de sa résidence physique à Las Vegas (Luxor) qui recycle les meilleurs artistes toutes disciplines confondues. KINTESSENS réplique cette logique via un <strong>format récurrent et standardisé dans un lieu partenaire fixe à Dakar</strong>, éliminant les coûts marketing et logistiques redondants d'événements en page blanche.</p>
+        <p>L'approche pluridisciplinaire — intégrant stand-up, poésie/slam, performances visuelles et danse aux côtés de la musique — réduit les CAPEX/OPEX tout en s'adressant à tous les publics, y compris la diaspora, les expatriés et les touristes résidant à Dakar.</p>
+        <div class="pillar-insight">➔ OPEX réduits par standardisation du format sur 7 éditions annuelles</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h3>L'Asymétrie des Droits — Le "Dragnet Contractuel"</h3>
+        <p>AGT sécurise des options exclusives sur la carrière des artistes dès l'inscription. KINTESSENS professionnalise son cadre juridique en insérant dans chaque contrat d'engagement une <strong>clause de First-Refusal</strong> : si un artiste explose grâce à un événement LIVE, KINTESSENS devient le producteur ou bookeur prioritaire pour ses dates majeures à l'international et au KINTESSENS FESTIVAL.</p>
+        <p>La propriété exclusive des Masters audio et vidéo (captations des Lives) constitue un actif immatériel de l'entreprise culturelle, monétisable auprès de RTS, Canal+ Afrique, TRACE AFRIQUE ou de marques en quête de contenus premium.</p>
+        <div class="pillar-insight">➔ Propriété des Masters = actif bilantiel à valeur croissante</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h3>Le "Golden Buzzer" Réinventé — L'Activation Sponsor Organique</h3>
+        <p>Le Golden Buzzer d'AGT est un outil structurel conçu pour générer une émotion forte et un arc narratif instantané. KINTESSENS crée son équivalent via la <strong>séquence "L'Impulsion"</strong> : un moment fort entièrement parrainé par un sponsor premium (banque locale, opérateur télécom) qui annonce le talent shortlisté pour la grande finale.</p>
+        <p>Cette mécanique vend au sponsor une intégration de marque organique et mémorable au cœur du spectacle physique, éliminant le besoin d'une application mobile pour créer de l'engagement émotionnel et du Branded Content non-skippable.</p>
+        <div class="pillar-insight">➔ ROI sponsor multiplié : visibilité physique + TV + viralité digitale organique</div>
+      </div>
+    </div>
+
+    <div class="callout mt-32">
+      <div class="callout-label">Synthèse du Repositionnement</div>
+      <p>KINTESSENS LIVE n'est plus un simple enchaînement de concerts à Dakar : il devient un <strong>incubateur physique à risque maîtrisé</strong>, un outil de sécurisation de droits artistiques et un <strong>générateur de récits ultra-efficients</strong> pour ses sponsors, capitalisant sur les mécaniques éprouvées d'un format global générant plusieurs milliards de dollars annuellement.</p>
+    </div>
+  </section>
+
+  <!-- ===== 03. DIRECTION ARTISTIQUE ===== -->
+  <section class="section" id="direction-artistique">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Architecture Éditoriale</div>
+        <h2>Direction Artistique & Ingénierie du Conducteur</h2>
+      </div>
+    </div>
+
+    <p class="mb-32">La méthode AGT est appliquée dans son intégralité : <strong>chaque minute du show live doit servir soit à capter un segment télévisuel à fort impact, soit à maintenir l'énergie du public présent</strong> pendant les transitions techniques. Le show physique de 3 heures et le format TV de 52 minutes sont conçus simultanément comme un plateau de tournage en public.</p>
+
+    <h3 class="mb-16">A. Le Déroulé du Show Physique (3 Heures In Situ)</h3>
+
+    <div class="actes-grid mb-32">
+      <div class="acte-block">
+        <div class="acte-label">Acte 1</div>
+        <div class="acte-title">L'Avant-Scène</div>
+        <div class="acte-time">75 minutes — 20 min TV</div>
+        <div class="acte-item">8 à 10 artistes émergents pluridisciplinaires (musique, humour, danse, slam)</div>
+        <div class="acte-item">5 minutes par performance — format dynamique standard AGT</div>
+        <div class="acte-item">Jury en position centrale pour feedback de 2 min par artiste</div>
+        <div class="acte-item">25 min de transitions gérées par MC + mix DJ</div>
+        <div class="acte-item">Chauffage de salle + captation des pépites pluridisciplinaires</div>
+      </div>
+      <div class="acte-block">
+        <div class="acte-label">Acte 2</div>
+        <div class="acte-title">L'Impulsion Sponsor</div>
+        <div class="acte-time">45 minutes — 5 min TV</div>
+        <div class="acte-item">15 min : moment sponsor — le "Golden Buzzer" de KINTESSENS</div>
+        <div class="acte-item">Représentant du partenaire B2B annonce le talent shortlisté pour la finale</div>
+        <div class="acte-item">Séquence à forte charge émotionnelle, calibrée pour le montage TV</div>
+        <div class="acte-item">30 min : entracte technique — accès buvettes, génération de revenus F&B</div>
+        <div class="acte-item">Configuration lourde du "Prime" installée en coulisses</div>
+      </div>
+      <div class="acte-block">
+        <div class="acte-label">Acte 3</div>
+        <div class="acte-title">Le Prime</div>
+        <div class="acte-time">60 minutes — 22 min TV</div>
+        <div class="acte-item">2 à 4 têtes d'affiche — performance originale, hybride, exclusive</div>
+        <div class="acte-item">40 min de performance non-stop (pas de mini-concerts individuels)</div>
+        <div class="acte-item">20 min de rappel et de communion finale avec le public</div>
+        <div class="acte-item">Création inédite stimulant la créativité des artistes confirmés</div>
+        <div class="acte-item">Moments forts priorisés au montage TV pour le bloc de 22 min</div>
+      </div>
+    </div>
+
+    <h3 class="mb-16">B. L'Ingénierie du Format TV (52 Minutes en Post-Production)</h3>
+
+    <div class="tv-timeline">
+      <div class="tv-bar">
+        <div class="tv-seg tv-seg-1">Géné</div>
+        <div class="tv-seg tv-seg-2">Top Performers</div>
+        <div class="tv-seg tv-seg-3">Impulsion</div>
+        <div class="tv-seg tv-seg-4">Le Grand Prime</div>
+        <div class="tv-seg tv-seg-5">Outro</div>
+      </div>
+      <div class="tv-legend">
+        <div class="tv-legend-item">
+          <div class="tv-legend-dot" style="background:#2E4057;"></div>
+          <span class="time">[00–03 min]</span>
+          <span class="desc">Teaser, Générique & Ambiance Dakar — Introduction atmosphérique de la marque KINTESSENS</span>
+        </div>
+        <div class="tv-legend-item">
+          <div class="tv-legend-dot" style="background:#1E3A5F;"></div>
+          <span class="time">[03–23 min]</span>
+          <span class="desc">Les 4 "Top Performers" de l'Acte 1 — Chaque artiste : 1 min 30 de portrait en coulisses (origines, rêves, parcours) + 3 min 30 de performance scénique</span>
+        </div>
+        <div class="tv-legend-item">
+          <div class="tv-legend-dot" style="background:#FF6B35;"></div>
+          <span class="time">[23–28 min]</span>
+          <span class="desc">La Séquence "Impulsion" (Sponsor) — Annonce du gagnant de la soirée avec réactions à chaud des spectateurs. Point d'orgue de la visibilité de la marque partenaire, Branded Content organique non-skippable</span>
+        </div>
+        <div class="tv-legend-item">
+          <div class="tv-legend-dot" style="background:#1A3A5C;"></div>
+          <span class="time">[28–50 min]</span>
+          <span class="desc">Le Grand Prime — Moments forts et morceaux les plus intenses de la performance originale. Montage privilégiant les interactions visuelles et la fluidité des collaborations artistiques</span>
+        </div>
+        <div class="tv-legend-item">
+          <div class="tv-legend-dot" style="background:#2E4057;"></div>
+          <span class="time">[50–52 min]</span>
+          <span class="desc">Outro & Teaser du Prochain Live — Maintien de la tension de la saison et rappel de la prochaine date pour fidéliser l'audience TV</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">C. Dynamique et Rétention sur la Saison (7 Lives / 5–6 Semaines)</h3>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="label-tag">Calendrier</div>
+        <h4>L'Espacement Stratégique de 5–6 Semaines</h4>
+        <p style="font-size:13px;color:var(--text-light);">Ce choix de cadence est délibéré pour le marché ouest-africain : il laisse le temps à la post-production TV d'atteindre un niveau d'excellence internationale, permet à l'équipe logistique de répliquer le modèle sans s'épuiser et positionne la diffusion TV différée comme relais d'engagement à mi-chemin entre deux Lives physiques (2–3 semaines après le tournage). Cette diffusion réactive précisément l'intérêt de la marque au moment où l'attention commence à baisser.</p>
+      </div>
+      <div class="card">
+        <div class="label-tag orange">Finale</div>
+        <h4>Le Live 7 — La Grande Finale des Émergents</h4>
+        <p style="font-size:13px;color:var(--text-light);">Le 7ème et dernier Live de la saison ne suit pas le format habituel : il devient <strong>La Finale des Émergents</strong>, où le public et le comité artistique élisent parmi les talents shortlistés aux Lives 1 à 6 ceux qui rejoindront officiellement la programmation du grand KINTESSENS FESTIVAL. Ce système transforme la saison entière en une véritable <strong>série culturelle</strong>, maximisant la valeur du catalogue de captations et la rétention des sponsors du début à la fin de l'année.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04. JURY ===== -->
+  <section class="section" id="jury">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Gouvernance Artistique</div>
+        <h2>Le Jury — Gouvernance et Posture Médiatique</h2>
+      </div>
+    </div>
+
+    <p class="mb-24">La décision de confier le rôle de jury aux <strong>4 membres du conseil artistique existant de KINTESSENS</strong> constitue le meilleur choix stratégique disponible : elle garantit une cohérence éditoriale absolue avec l'ADN de la marque, élimine le coût d'un jury externe et renforce la légitimité éthique du projet sans dénaturer la gouvernance en place. Le format TV de 52 minutes exige que chacun apporte une <strong>couleur complémentaire et distincte</strong> lors des débriefings à chaud sur scène.</p>
+
+    <h3 class="mb-16">A. Matrice d'Archétypes — La Complémentarité des 4 Membres</h3>
+
+    <div class="archetype-grid mb-32">
+      <div class="archetype-card">
+        <div class="archetype-icon">🎯</div>
+        <div class="archetype-role">Archétype 1</div>
+        <div class="archetype-name">L'Expert Technique — La Rigueur</div>
+        <p class="archetype-desc">Le "Simon Cowell" bienveillant de la configuration. Ce membre juge la structure technique de la performance, le professionnalisme d'exécution, la justesse interprétative et le potentiel d'exportation internationale. Ses retours éduquent le public présent sur les critères d'excellence artistique et fournissent la matière analytique la plus dense pour le montage TV.</p>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-icon">🎨</div>
+        <div class="archetype-role">Archétype 2</div>
+        <div class="archetype-name">Le Créatif — L'Émotionnel</div>
+        <p class="archetype-desc">Le membre sensible à la mise en scène, à l'originalité de la proposition phygitale et à la résonance culturelle locale. Il capture et verbalise l'impact émotionnel de la performance sur le public, offrant au montage TV les séquences les plus propices à la viralité sur TikTok et Instagram Reels. Son retour contraste avec l'analytique de l'Expert pour créer une tension narrative productive.</p>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-icon">🔗</div>
+        <div class="archetype-role">Archétype 3</div>
+        <div class="archetype-name">Le Connecteur — Le Visionnaire Marché</div>
+        <p class="archetype-desc">Celui qui évalue immédiatement comment le talent peut s'intégrer avec les sponsors B2B, plaire à la diaspora et s'insérer dans la programmation globale du KINTESSENS FESTIVAL. Son regard commercial permet aux partenaires de se voir représentés dans la délibération artistique, renforçant la valeur de leur investissement de sponsoring au-delà de la simple visibilité.</p>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-icon">🌱</div>
+        <div class="archetype-role">Archétype 4</div>
+        <div class="archetype-name">Le Mentor — L'Ancrage Social</div>
+        <p class="archetype-desc">Le garant de la ligne éthique et du module Solidarité. Il cherche l'authenticité, l'impact du storytelling et la trajectoire humaine de la jeune pousse. Son regard garantit que la sélection finale ne repose pas uniquement sur la performance scénique mais intègre la dimension de transformation sociale du projet, un argument RSE essentiel pour les partenaires institutionnels.</p>
+      </div>
+    </div>
+
+    <h3 class="mb-16">B. Rôle Opérationnel pendant le Show (3 Heures)</h3>
+
+    <div class="card mb-24">
+      <p>Les 4 membres du conseil artistique sont installés au <strong>cœur de la salle</strong> (table centrale surélevée, face à la scène), devenant des acteurs clés du spectacle :</p>
+      <ul class="styled-list mt-24">
+        <li><strong>Acte 1 (L'Avant-Scène) :</strong> Après chaque performance de 5 minutes, le jury dispose de 2 minutes de feedback en direct au micro. Ces commentaires à chaud éduquent le public sur les critères d'excellence et constituent la matière narrative brute pour la post-production TV des segments "Top Performers".</li>
+        <li><strong>Acte 2 (La Séquence "Impulsion") :</strong> Le jury délibère en direct sur scène aux côtés du représentant du sponsor officiel. Ce mécanisme crée un équilibre parfait entre crédibilité artistique (le conseil valide techniquement) et puissance corporate (le sponsor apporte la dotation financière). Le contrat B2B stipule explicitement que le pouvoir décisionnel final reste la <strong>prérogative exclusive du conseil artistique</strong>.</li>
+        <li><strong>Garantie de Label Premium :</strong> Contrairement aux émissions de télé-réalité basées sur le vote par SMS (biaisé par les budgets de communication des candidats), la souveraineté du conseil artistique protège l'événement et assure que l'artiste atteignant la finale a été sélectionné pour sa qualité intrinsèque et son potentiel réel — pas sa popularité superficielle.</li>
+      </ul>
+    </div>
+
+    <h3 class="mb-16">C. Le Jury comme Directeurs Pédagogiques du KINTESSENS Lab</h3>
+
+    <div class="callout">
+      <div class="callout-label">Impact Stratégique — La Dualité Juge / Mentor</div>
+      <p>Entre deux Lives (pendant les 5 à 6 semaines d'intervalle), les 4 membres du conseil supervisent les bootcamps et le coaching des shortlistés au sein du Lab. Cette dualité — <strong>juges le soir du show / mentors en coulisses</strong> — renforce l'impact social et humain du projet. Au montage TV, voir un membre du conseil pousser un artiste dans ses retranchements en répétition, puis l'applaudir debout lors du Live suivant, offre un arc narratif d'une efficacité redoutable pour l'audience et une démonstration concrète de la valeur ajoutée du dispositif pour les sponsors.</p>
+    </div>
+  </section>
+
+  <!-- ===== 05. MODÈLE ÉCONOMIQUE ===== -->
+  <section class="section" id="modele-eco">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Ingénierie Financière</div>
+        <h2>Modèle Économique & Impacts Financiers</h2>
+      </div>
+    </div>
+
+    <h3 class="mb-16">A. Ingénierie du Grand Prix — Les 5 000 000 FCFA</h3>
+    <p class="mb-24">Conformément à l'astuce de l'annuité utilisée par AGT pour préserver sa trésorerie, la récompense du gagnant n'est pas versée en un seul bloc. Elle est qualifiée juridiquement de <strong>subvention d'accompagnement sous conditions</strong> et lissée dans le temps, servant à la fois la gestion de trésorerie et le module Solidarité.</p>
+
+    <div class="dotation-grid mb-32">
+      <div class="dotation-card">
+        <div class="dotation-header">
+          <div class="dotation-badge">Option 1 — Recommandée</div>
+          <div class="dotation-title">Mode "Salaire de Propulsion"</div>
+          <div class="dotation-amount">12 mois <small>d'étalement</small></div>
+        </div>
+        <div class="dotation-body">
+          <div class="dotation-row">
+            <span class="dotation-row-label">Versement mensuel (mois 1–11)</span>
+            <span class="dotation-row-value">200 000 FCFA</span>
+          </div>
+          <div class="dotation-row">
+            <span class="dotation-row-label">Bonus final structurant (mois 12)</span>
+            <span class="dotation-row-value">2 800 000 FCFA</span>
+          </div>
+          <div class="dotation-row">
+            <span class="dotation-row-label">Total décaissé</span>
+            <span class="dotation-row-value td-highlight">5 000 000 FCFA</span>
+          </div>
+          <div class="dotation-advantage">
+            <strong>Avantage :</strong> L'artiste dispose d'un revenu régulier pour se consacrer à 100% à sa professionnalisation. Le bonus final finance un projet structurant (album, spectacle solo, tournée régionale).
+          </div>
+        </div>
+      </div>
+      <div class="dotation-card">
+        <div class="dotation-header orange-bg">
+          <div class="dotation-badge">Option 2 — Trésorerie Optimale</div>
+          <div class="dotation-title">Mode "Incubateur Long Terme"</div>
+          <div class="dotation-amount">24 mois <small>d'étalement</small></div>
+        </div>
+        <div class="dotation-body">
+          <div class="dotation-row">
+            <span class="dotation-row-label">Versement mensuel (mois 1–23)</span>
+            <span class="dotation-row-value">150 000 FCFA</span>
+          </div>
+          <div class="dotation-row">
+            <span class="dotation-row-label">Solde final (mois 24)</span>
+            <span class="dotation-row-value">1 550 000 FCFA</span>
+          </div>
+          <div class="dotation-row">
+            <span class="dotation-row-label">Charge mensuelle récurrente</span>
+            <span class="dotation-row-value td-highlight">150 000 FCFA</span>
+          </div>
+          <div class="dotation-advantage">
+            <strong>Impact Trésorerie :</strong> Au lieu de 5 M FCFA en sortie unique, la charge mensuelle n'est que de 150 000 FCFA — largement couverte par les revenus F&B d'une seule édition. Risque financier court terme quasi nul.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">B. Volet B2C — Stratégie de Billetterie (Yield Management)</h3>
+
+    <div class="pricing-grid mb-32">
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <div class="pricing-tier">Catégorie Standard</div>
+          <div class="pricing-name">Ticket Émergence</div>
+          <div class="pricing-price">5 000 <span>FCFA</span></div>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-feature"><span class="check">✓</span>Accès au show complet de 3 heures</div>
+          <div class="pricing-feature"><span class="check">✓</span>Zone standard (placement libre)</div>
+          <div class="pricing-feature"><span class="check">✓</span>Cible : passionnés de culture, jeunesse, supporters des émergents</div>
+          <div class="pricing-feature"><span class="check">✓</span>500 FCFA fléchés vers le Split Solidaire (10%)</div>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <div class="pricing-tier">Catégorie Privilège</div>
+          <div class="pricing-name">Ticket Prime</div>
+          <div class="pricing-price">15 000 <span>FCFA</span></div>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-feature"><span class="check">✓</span>Placement assis numéroté face à la scène</div>
+          <div class="pricing-feature"><span class="check">✓</span>Meilleure visibilité pour le "Prime" des têtes d'affiche</div>
+          <div class="pricing-feature"><span class="check">✓</span>Cible : public établi, fans des artistes confirmés, diaspora</div>
+          <div class="pricing-feature"><span class="check">✓</span>1 500 FCFA fléchés vers le Split Solidaire (10%)</div>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-header vip">
+          <div class="pricing-tier">Catégorie Premium</div>
+          <div class="pricing-name">Mécène VIP</div>
+          <div class="pricing-price">50 000 <span>FCFA</span></div>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-feature"><span class="check">✓</span>Accès loges + cocktail d'entracte dédié</div>
+          <div class="pricing-feature"><span class="check">✓</span>Mention au générique TV de 52 minutes</div>
+          <div class="pricing-feature"><span class="check">✓</span>Cible : diaspora de passage, cadres d'entreprises, amateurs d'art fortunés</div>
+          <div class="pricing-feature"><span class="check">✓</span>5 000 FCFA fléchés vers le Split Solidaire (10%)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout mb-32">
+      <div class="callout-label">Le Split Solidaire — Financement Circulaire Automatique</div>
+      <p>10% du prix de chaque billet physique (toutes catégories confondues) est directement fléché pour financer des <strong>invitations gratuites distribuées aux publics vulnérables</strong> pour le Live suivant. Ce mécanisme automatique et mesurable transforme les spectateurs les plus aisés en financeurs organiques de l'accès à la culture pour les populations défavorisées — une proposition RSE imparable pour les partenaires institutionnels.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">C. Volet B2B — Sponsoring Pluriannuel & Intégration de Marque</h3>
+
+    <div class="two-col mb-32">
+      <div class="card">
+        <div class="label-tag orange">Package Premium</div>
+        <h4>Naming du Grand Prix</h4>
+        <p style="font-size:13px;color:var(--text-light);">Le prix de 5 000 000 FCFA est entièrement financé par un partenaire majeur (ex: "Le Prix CANAL+ – Kintessens Émergence"). Le sponsor verse une prime annuelle globale et son représentant remet le trophée lors du 7ème Live — la grande finale. C'est la visibilité maximale sur la séquence à plus forte charge émotionnelle de toute la saison.</p>
+        <div style="margin-top:14px;font-size:13px;"><strong style="color:var(--navy);">Valeur estimée :</strong> <span style="color:var(--orange);font-weight:700;">≥ 5 000 000 FCFA / an</span></div>
+      </div>
+      <div class="card">
+        <div class="label-tag">Activation In-Situ</div>
+        <h4>Exclusivité de la Séquence "L'Impulsion"</h4>
+        <p style="font-size:13px;color:var(--text-light);">Une marque peut parrainer l'exclusivité du moment où un jeune talent est propulsé vers la finale, associant son image à une réussite humaine et émotionnelle forte. La visibilité est garantie en live physique (devant le public), dans le format TV de 52 minutes (5 min de présence à l'écran) et en contenus digitaux viraux (TikTok, YouTube). Le levier "Match Funding" permet en outre au sponsor d'abonder les récompenses des artistes, en faisant un acteur direct du développement économique local — argument RSE imparable.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">D. F&B — Revenue Sharing Asset-Light</h3>
+
+    <div class="card mb-24">
+      <p style="margin-bottom:16px;">L'intégration du bar et de la restauration en mode Revenue Sharing constitue un pilier d'<strong>ingénierie financière vertueux</strong> : KINTESSENS n'achète aucun stock, ne gère aucun personnel de cuisine et n'assume aucune perte sur invendus. La logistique, la chaîne de froid et la responsabilité opérationnelle incombent au partenaire (salle ou traiteur).</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Zone Publique</th>
+              <th>Offre F&B</th>
+              <th>Commission KINTESSENS</th>
+              <th>Profil de Consommateur</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-label">Zone Émergence</td>
+              <td>Boissons & street-food locale à volume élevé, prix accessibles</td>
+              <td class="td-highlight">15 à 20% du CA</td>
+              <td>Jeunesse, grand public, panier moyen estimé 2 000–3 000 FCFA</td>
+            </tr>
+            <tr>
+              <td class="td-label">Zone Prime</td>
+              <td>Cocktails intermédiaires, snacks premium</td>
+              <td class="td-highlight">20 à 25% du CA</td>
+              <td>Public adulte-établi, panier moyen 3 000–5 000 FCFA</td>
+            </tr>
+            <tr>
+              <td class="td-label">Espace Mécène VIP</td>
+              <td>Cocktails haut de gamme, buffet traiteur inclus dans le billet</td>
+              <td class="td-highlight">25 à 30% du CA</td>
+              <td>Cadres, diaspora, VIP — panier moyen 5 000–7 000 FCFA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout mt-24">
+        <div class="callout-label">F&B comme Amortisseur de la Dotation</div>
+        <p>Si un Live moyen génère 1 500 000 FCFA de recettes nettes via le Revenue Sharing du F&B, cette source à elle seule couvre <strong>7 à 10 mois du "Salaire de Propulsion"</strong> du lauréat (150 000–200 000 FCFA/mois), réduisant drastiquement la dépendance vis-à-vis des subventions publiques ou du sponsoring privé.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">E. Monétisation Média — Droits TV & Revenus Digitaux</h3>
+
+    <div class="two-col mb-32">
+      <div class="card">
+        <div class="label-tag">Droits de Diffusion</div>
+        <h4>Licence TV Panafricaine</h4>
+        <p style="font-size:13px;color:var(--text-light);">Le format saisonnalisé de 52 minutes possède une valeur marchande réelle pour les diffuseurs en quête de programmes de divertissement structurés. KINTESSENS passe du statut de demandeur d'espace publicitaire à celui de <strong>producteur-fournisseur d'un programme à forte valeur d'audience</strong>. Cibles prioritaires : RTS, TFM (diffusion locale), Canal+ Afrique et TRACE AFRIQUE (panafricain), générant des revenus de licence récurrents sur 7 épisodes par saison.</p>
+      </div>
+      <div class="card">
+        <div class="label-tag orange">Digital</div>
+        <h4>AdSense YouTube — Ciblage Diaspora</h4>
+        <p style="font-size:13px;color:var(--text-light);">Diffusion des épisodes complets ou segments "Top Performers" sur la chaîne YouTube officielle KINTESSENS. La diaspora africaine — extrêmement friande de contenus culturels premium — constitue une audience internationale à forte valeur publicitaire (CPM en euros/dollars). Les coupures AdSense sur des vidéos à fort potentiel viral génèrent des <strong>revenus passifs en devises étrangères</strong>, même sans partenaires TV formels dans les premières saisons.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="mb-16">F. Matrice Économique Synthétique d'un Kintessens Live</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Source de Revenu</th>
+            <th>Nature Juridique / Économique</th>
+            <th>Impact sur le Cash-Flow KINTESSENS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">Billetterie (5k à 50k FCFA)</td>
+            <td>Revenu Direct B2C — Vente de billets segmentés en trois catégories de Yield Management</td>
+            <td>Couvre la production technique. 10% fléchés automatiquement vers le module Solidarité pour financement circulaire.</td>
+          </tr>
+          <tr>
+            <td class="td-label">Sponsoring & Naming</td>
+            <td>Revenu Direct B2B — Packages annuels pluriannuels, Naming Grand Prix, exclusivité "Impulsion"</td>
+            <td>Finance les cachets des têtes d'affiche du "Prime". Sécurise la marque sur 10 mois de visibilité continue.</td>
+          </tr>
+          <tr>
+            <td class="td-label">Bar & Restauration (F&B)</td>
+            <td>Revenue Sharing (15–30% du CA) — Modèle Asset-Light délégué à 100% à des opérateurs tiers</td>
+            <td class="td-highlight">Marge nette pure (Zéro coût d'infrastructure). Amortit et autofinance la dotation finale de 5 M FCFA sur 12–24 mois.</td>
+          </tr>
+          <tr>
+            <td class="td-label">Droits TV & Média (52 min)</td>
+            <td>Droits de Propriété Intellectuelle — Cession de licences de diffusion et exploitation numérique (AdSense)</td>
+            <td>Actif immatériel générant des revenus de licence à long terme. Valeur croissante avec la notoriété des artistes révélés.</td>
+          </tr>
+          <tr>
+            <td class="td-label">Warm-ups & Activations B2B Intermédiaires</td>
+            <td>Prestations de services ponctuelles — Shortlistés animant des événements corporate ou solidaires</td>
+            <td>Flux de trésorerie réguliers entre deux Lives. Sécurise la subsistance des talents shortlistés sans charge fixe pour KINTESSENS.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 06. SOURCING ===== -->
+  <section class="section" id="sourcing">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Pipeline de Talents</div>
+        <h2>Sourcing des Talents — Le Dragnet Actif</h2>
+      </div>
+    </div>
+
+    <div class="kpi-grid mb-32" style="grid-template-columns:repeat(3,1fr);">
+      <div class="kpi-card">
+        <div class="kpi-value">80–100</div>
+        <div class="kpi-label">Talents pluridisciplinaires à sourcer par saison</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value orange">8–10</div>
+        <div class="kpi-label">Artistes émergents sélectionnés par édition (Acte 1)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">4</div>
+        <div class="kpi-label">Canaux de sourcing stratégiques actifs en parallèle</div>
+      </div>
+    </div>
+
+    <p class="mb-24">Inspiré du modèle de détection d'AGT — qui attend rarement que les meilleurs talents s'inscrivent spontanément —, le sourcing KINTESSENS est structuré comme un <strong>réseau de dragnet actif</strong> combinant scouting de terrain, relais communautaires et ingénierie de partenariats. Ce maillage assure un flux constant, qualifié et hautement spectaculaire de talents sur toute la durée des 7 Lives.</p>
+
+    <div class="dragnet-grid mb-32">
+      <div class="dragnet-card">
+        <div class="dragnet-num">01</div>
+        <h3>Brigades de Scouting Digital & Terrain</h3>
+        <p><strong>Scouting Digital (Social Listening) :</strong> Veille bimensuelle sur TikTok, Instagram et YouTube axée sur la scène ouest-africaine. Objectif : repérer les vidéos virales de jeunes slameurs, humoristes, danseurs ou musiciens de rue n'ayant pas encore de structure professionnelle mais capturant déjà l'attention du public.</p>
+        <p style="margin-top:10px;"><strong>Scouting de Terrain (Underground) :</strong> Mandatement de "chasseurs de têtes" culturels pour écumer les espaces d'expression informels à Dakar, Thiès, Saint-Louis : battles de danse de quartier, scènes ouvertes de slam, comedy clubs et concerts de fin d'année des écoles de musique.</p>
+      </div>
+      <div class="dragnet-card">
+        <div class="dragnet-num">02</div>
+        <h3>Sourcing Institutionnel — Partenariats Écoles & Centres</h3>
+        <p><strong>Écoles d'Art et Conservatoires :</strong> Partenariat de "première option" avec l'École Nationale des Arts (ENA) de Dakar et le Conservatoire de Musique. Les directeurs pédagogiques recommandent chaque année leurs meilleurs éléments ou diplômés récents au dispositif KINTESSENS.</p>
+        <p style="margin-top:10px;"><strong>Centres Culturels Régionaux & Instituts Français :</strong> Ces hubs servent de pré-filtres permanents. Ils accueillent des artistes en résidence tout au long de l'année et connaissent parfaitement le tissu local des jeunes pousses prêtes pour la scène professionnelle.</p>
+      </div>
+      <div class="dragnet-card">
+        <div class="dragnet-num">03</div>
+        <h3>Les "KINTESSENS Caravanes" — Auditions Flash en Régions</h3>
+        <p><strong>Le Concept :</strong> 3 grandes sessions d'auditions flash "Pop-up" par an dans des villes stratégiques (Saint-Louis, Ziguinchor, Kaolack). Une équipe ultra-réduite (directeur artistique, ingénieur du son, cadreur, représentant sponsor) s'installe pendant 48 heures dans un espace partenaire local.</p>
+        <p style="margin-top:10px;"><strong>Double Bénéfice :</strong> Détection de profils uniques en dehors de la bulle dakaroise + génération de matière narrative exceptionnelle pour les portraits vidéo de 1 min 30 diffusés dans le format TV de 52 minutes. Chaque Caravane devient un mini-événement médiatique décentralisé.</p>
+      </div>
+      <div class="dragnet-card">
+        <div class="dragnet-num">04</div>
+        <h3>Sourcing Communautaire — La Cooptation par les Idoles</h3>
+        <p><strong>La Carte Blanche aux Têtes d'Affiche :</strong> Chaque tête d'affiche du "Prime" a l'opportunité de recommander ou de "pousser" une jeune pousse de son choix pour ouvrir l'Acte 1 du show. Ce système de cooptation sécurise des talents de confiance déjà validés par un pair établi.</p>
+        <p style="margin-top:10px;"><strong>L'Impact Storytelling :</strong> Voir une star établie présenter sur scène son "protégé" crée une séquence d'une puissance émotionnelle absolue, très valorisante pour l'artiste parrain et mémorable pour l'audience TV. Arc narratif prêt-à-monter pour la post-production.</p>
+      </div>
+    </div>
+
+    <h3 class="mb-16">Critères de Sélection et Contractualisation Immédiate — La Matrice KINTESSENS</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Définition Opérationnelle</th>
+            <th>Levier Contractuel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">Potentiel Pluridisciplinaire</td>
+            <td>Capacité à délivrer une performance visuelle ou scénique forte — pas uniquement vocale — pour s'adapter au rythme dynamique du format TV et à la variété du public</td>
+            <td>Critère d'éligibilité non-négociable validé par le Scouting</td>
+          </tr>
+          <tr>
+            <td class="td-label">Disponibilité & Engagement</td>
+            <td>Capacité à s'engager sur toute la durée de la saison (7 Lives sur 10 mois), à participer aux bootcamps du Lab et aux Warm-ups rémunérés intermédiaires</td>
+            <td>Accord d'exclusivité de participation signé immédiatement à la sélection</td>
+          </tr>
+          <tr>
+            <td class="td-label">Signature Immédiate — First-Refusal</td>
+            <td>En contrepartie de la scène, du coaching et de la captation professionnelle offerts par KINTESSENS, l'artiste accorde un droit de priorité exclusif sur son management et ses futures dates majeures</td>
+            <td class="td-highlight">Clause de First-Refusal sur droits de captation et management futur (12–24 mois)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 07. ENGAGEMENT CONTINU ===== -->
+  <section class="section" id="engagement">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Rétention & Accélération des Talents</div>
+        <h2>Engagement Continu des Pépites Émergentes</h2>
+      </div>
+    </div>
+
+    <p class="mb-32">Pour maintenir un engagement total et une tension dramatique positive parmi les artistes shortlistés (vainqueurs de la séquence "Impulsion" des Lives 1 à 6) pendant les 5 à 30 semaines qui les séparent de la grande finale du Live 7, KINTESSENS applique le secret des grands incubateurs comme AGT : <strong>transformer l'attente passive en un parcours d'accélération et de visibilité continue</strong>.</p>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <h4>L'Intégration au KINTESSENS Lab — Le Bootcamp de Professionnalisation</h4>
+          <p>Dès qu'un artiste est shortlisté, il change de statut : il devient un <strong>"Résident KINTESSENS"</strong>. Il accède à des modules de coaching intensifs pris en charge par KINTESSENS — direction scénique, technique vocale ou corporelle, gestion des droits d'auteur sous le standard OHADA/régional, media-training. Cette valeur concrète et immédiate maintient l'artiste engagé et garantit un niveau artistique encore plus spectaculaire pour la finale du Live 7. Le Lab est supervisé par les 4 membres du conseil artistique en dualité juge/mentor.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <h4>Le Programme de Shadowing — Mentorat Backstage par les Idoles</h4>
+          <p>Les shortlistés des Lives précédents sont officiellement invités à assister aux Lives suivants en zone Privilège ou VIP. KINTESSENS organise des rencontres exclusives en coulisses entre les shortlistés et les 2 à 4 têtes d'affiche du "Prime" de chaque édition. Permettre à un jeune talent d'échanger des conseils ou de faire écouter son travail à une star établie crée un <strong>ancrage émotionnel et une fidélité absolue</strong> envers le projet, éliminant le risque de départ vers un promoteur concurrent.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <h4>Les "KINTESSENS Chronicles" — Ingénierie de Contenu (Fil Rouge TV)</h4>
+          <p>La post-production intègre dans les épisodes TV des Lives 3, 4, 5 et 6 un mini-segment de 2 minutes ("Des Nouvelles de...") montrant l'évolution, les répétitions et la préparation des artistes déjà qualifiés lors des premiers Lives. L'artiste se voit à la télévision même s'il ne joue pas ce soir-là, ce qui booste sa notoriété locale, maintient sa motivation au sommet et construit sa communauté (sa "fanbase") en amont du vote final du Live 7. <strong>Lorsque la finale arrive, l'engagement de la communauté en ligne est à son paroxysme.</strong></p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">4</div>
+        <div class="step-content">
+          <h4>Les "Warm-ups" Rémunérés — Sécuriser la Trésorerie des Talents</h4>
+          <p>L'une des principales causes de désengagement ou de fuite des talents vers d'autres opportunités est l'urgence financière. KINTESSENS mobilise les shortlistés pour animer les espaces d'entracte (Acte 2) ou les premières parties d'événements corporate ou solidaires organisés par KINTESSENS ou ses sponsors. Ces prestations intermédiaires sont <strong>rémunérées via des cachets de transition financés par les packages de sponsoring B2B</strong>, permettant à l'artiste de subsister dignement grâce à son art en attendant la finale, tout en restant contractuellement lié au projet.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">5</div>
+        <div class="step-content">
+          <h4>Le Climax Narratif — Matérialisation Progressive de la Saison</h4>
+          <p>À la fin de chaque Live, après l'annonce du nouveau shortlisté par le sponsor, les visages des qualifiés successifs sont rassemblés visuellement sur scène et à l'écran. Cette mise en scène progressive matérialise la montée en puissance de la saison, maintient une tension dramatique captivante pour l'audience comme pour les artistes, et constitue une séquence mémorable pour les contenus digitaux snack-content diffusés sur TikTok et Instagram Reels.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 08. MATRICE DES IMPACTS ===== -->
+  <section class="section" id="impacts">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Analyse d'Impact — Big 4 Framework</div>
+        <h2>Matrice des Impacts Stratégiques</h2>
+      </div>
+    </div>
+
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('juridique')">⚖️ Juridiques</button>
+      <button class="tab-btn" onclick="showTab('social')">🤝 Sociaux</button>
+      <button class="tab-btn" onclick="showTab('partenariats')">🔗 Partenariats</button>
+      <button class="tab-btn" onclick="showTab('brand')">📡 Brand-Média & Digital</button>
+    </div>
+
+    <!-- TAB JURIDIQUE -->
+    <div id="tab-juridique" class="tab-content active">
+      <div class="callout mb-24">
+        <div class="callout-label">Cadre de Référence</div>
+        <p>L'analyse juridique est structurée selon les normes du <strong>droit des affaires OHADA</strong> et de la <strong>propriété intellectuelle OAPI</strong> applicables au Sénégal, en conformité avec le cadre SYSCOHADA pour la gestion comptable des flux solidaires.</p>
+      </div>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>Propriété Intellectuelle & Droits Voisins — La Rétention des Masters</h4>
+          <ul class="styled-list">
+            <li><strong>Cession exclusive et mondiale des droits de captation :</strong> Les contrats d'engagement incluent une clause de cession des droits de fixation, reproduction et télédiffusion. KINTESSENS devient l'unique propriétaire du Master audio et vidéo de chaque performance.</li>
+            <li><strong>Droit à l'image (hors-scène inclus) :</strong> L'autorisation d'exploitation couvre non seulement la performance scénique, mais tous les rushs captés en répétition, en coulisses et lors des KINTESSENS Caravanes utilisés dans les portraits TV de 1 min 30.</li>
+            <li><strong>Collaboration SODAV :</strong> Paiement des redevances de diffusion publique lors des événements physiques, protection des arrangements originaux créés lors des "Primes" collaboratifs.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Droit des Contrats — Le Verrouillage du Vivier de Talents</h4>
+          <ul class="styled-list">
+            <li><strong>Pacte de Préférence (First-Refusal, 12–24 mois) :</strong> En contrepartie de la visibilité, du coaching et du défraiement au sein du KINTESSENS Lab, l'artiste accorde à KINTESSENS un droit de priorité exclusif sur son management et ses futures dates majeures.</li>
+            <li><strong>Clause d'Exclusivité Temporaire :</strong> Durant toute la saison, les artistes shortlistés s'engagent à ne pas participer à un programme télévisé ou événement concurrent de grande envergure à Dakar sans accord écrit de KINTESSENS.</li>
+            <li><strong>Clauses Pénales Dissuasives :</strong> Indemnités financières forfaitaires en cas de rupture unilatérale d'engagement par un artiste qualifié pour la finale.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Ingénierie du Grand Prix — Juridiction du Versement Lissé</h4>
+          <ul class="styled-list">
+            <li><strong>Qualification de "Subvention d'Accompagnement sous Conditions" :</strong> Le versement lissé n'est pas un "gain de jeu" ni un "don". Il est juridiquement conditionné au respect par l'artiste de sa feuille de route (présence aux ateliers, validations des étapes de création, exclusivité).</li>
+            <li><strong>Clause de Résiliation du Payout :</strong> KINTESSENS se réserve le droit de suspendre les versements si l'artiste adopte un comportement préjudiciable à l'image premium ou s'il manque gravement à ses obligations éthiques.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Droit Commercial B2B & Fiscalité Sénégalaise</h4>
+          <ul class="styled-list">
+            <li><strong>Garantie de Visibilité et d'Airtime :</strong> Les contrats de sponsoring s'engagent sur une présence minimale à l'écran (≥ 3 mentions sonores par le MC, incrustation logo pendant la séquence "Impulsion" dans le format TV de 52 min).</li>
+            <li><strong>Clauses de Force Majeure Audiovisuelle :</strong> En cas de problème technique empêchant la captation, le contrat prévoit des compensations alternatives (report sur le Live suivant, intégration renforcée sur le digital).</li>
+            <li><strong>Traitement de la Part Solidaire (10%) :</strong> Isolation comptable en fonds affecté conformément au SYSCOHADA — la quote-part de 10% ne peut être assujettie à l'impôt sur les revenus commerciaux. Taxes locales sur les spectacles intégrées dans le calcul du prix de revient par ticket.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB SOCIAL -->
+    <div id="tab-social" class="tab-content">
+      <div class="callout mb-24">
+        <div class="callout-label">Posture Stratégique</div>
+        <p>Ce modèle n'effectue pas de l'action caritative passive : il utilise le <strong>divertissement de masse et le storytelling</strong> comme un levier d'ascension sociale, de structuration professionnelle et de cohésion citoyenne à Dakar et dans la sous-région.</p>
+      </div>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>De la Survie à la Stabilité Financière des Artistes</h4>
+          <ul class="styled-list">
+            <li>Le "Salaire de Propulsion" (5 M FCFA lissé sur 12–24 mois) offre au vainqueur une sécurité financière inédite dans le milieu culturel africain, lui permettant de quitter les petits boulots informels pour se consacrer à 100% à sa création.</li>
+            <li>Le système de Warm-ups rémunérés pour les shortlistés injecte des liquidités régulières dans l'économie des jeunes créateurs bien avant la finale.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Démocratisation & Inclusion — Le Split Solidaire</h4>
+          <ul class="styled-list">
+            <li><strong>Financement circulaire et citoyen :</strong> 10% de chaque billet physique finance mécaniquement l'accès des populations défavorisées. Les spectateurs les plus aisés et la diaspora deviennent les financeurs organiques de la solidarité.</li>
+            <li><strong>Mixité sociale réelle :</strong> Lors de chaque Live, la salle réunit décideurs économiques (VIP), jeunesse passionnée et publics vulnérables invités — le divertissement brise les barrières sociales.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Décentralisation Culturelle — Les Caravanes</h4>
+          <ul class="styled-list">
+            <li>Les brigades de scouting et auditions flash à l'intérieur du pays (Saint-Louis, Ziguinchor) redonnent une dignité et une voix aux talents des régions enclavées historiquement absentes des circuits culturels de Dakar.</li>
+            <li>Lorsqu'un artiste issu d'une région éloignée apparaît dans le format TV de 52 minutes diffusé à l'échelle panafricaine, c'est toute sa communauté, son quartier ou sa ville d'origine qui se voient valorisés nationalement et internationalement.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Structuration des Métiers de l'Ombre & Storytelling</h4>
+          <ul class="styled-list">
+            <li><strong>Incubateur pour techniciens locaux :</strong> Produire 7 Lives couplés à une post-production TV de niveau international crée un besoin permanent d'ingénieurs du son, cadreurs, monteurs, éclairagistes, régisseurs. Le KINTESSENS Lab forme la prochaine génération d'ICC au Sénégal.</li>
+            <li><strong>Role Models par le storytelling :</strong> Les portraits vidéo de 1 min 30 sur les parcours de vie diffusent des messages de résilience et de réussite hautement positifs. Le show devient une tribune grand public pour les thématiques citoyennes (éducation, environnement, inclusion, égalité).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB PARTENARIATS -->
+    <div id="tab-partenariats" class="tab-content">
+      <div class="callout mb-24">
+        <div class="callout-label">Mutation de la Proposition de Valeur</div>
+        <p>KINTESSENS ne vend plus de la <strong>visibilité événementielle éphémère</strong> à Dakar. Il offre une <strong>plateforme d'association stratégique sur le long terme</strong>, ancrée dans l'impact réel, le soft-power culturel et un ROI média mesurable.</p>
+      </div>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>Pour les Sponsors Privés (B2B) — De la Philanthropie au ROI Média</h4>
+          <ul class="styled-list">
+            <li><strong>Présence continue sur 10 mois :</strong> Avec 7 Lives espacés de 5–6 semaines, les marques bénéficient d'un fil rouge de visibilité stratégique permettant d'étaler leurs campagnes de communication de façon beaucoup plus efficiente qu'un événement ponctuel.</li>
+            <li><strong>Exclusivité narrative ("L'Impulsion") :</strong> Le parrainage du moment fort génère un attachement à la marque bien plus puissant qu'un spot publicitaire traditionnel — intégration organique au cœur de l'émotion collective.</li>
+            <li><strong>Levier RSE via le Match Funding :</strong> La possibilité d'abonder les récompenses financières des artistes transforme le sponsor en acteur direct du développement économique local — argument imparable pour les banques, compagnies d'assurance et opérateurs télécoms.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Pour les Institutions Publiques — Coopération Saine & Traçable</h4>
+          <ul class="styled-list">
+            <li><strong>Preuve par la Data :</strong> Le prélèvement automatisé de 10% sur chaque ticket offre aux ministères et ONG une traçabilité mathématique de l'impact social. KINTESSENS ne demande pas des subventions pour survivre — il présente un mécanisme d'autofinancement solidaire fonctionnel.</li>
+            <li><strong>Valorisation du Territoire (Soft-Power) :</strong> Grâce aux Caravanes, KINTESSENS devient le bras armé de la décentralisation culturelle. Les municipalités et directions régionales deviennent des partenaires logistiques naturels qui mettent en lumière leur patrimoine et leurs jeunes à l'échelle internationale.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Pour les Diffuseurs & Partenaires Médias</h4>
+          <ul class="styled-list">
+            <li><strong>Fournisseur de contenu premium :</strong> KINTESSENS passe du statut de demandeur d'espace publicitaire à celui de producteur-fournisseur d'un programme à forte valeur d'audience. Les chaînes (RTS, TFM, Canal+ Afrique) recherchent précisément des formats saisonnalisés structurés.</li>
+            <li><strong>Co-branding et promotion croisée :</strong> Le diffuseur partenaire assure la promotion des prochains événements physiques tout en rentabilisant ses propres écrans publicitaires grâce à l'audience générée par le show.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Pour les Lieux d'Accueil & Partenaires Logistiques</h4>
+          <ul class="styled-list">
+            <li><strong>Mutation du rapport locatif :</strong> Au lieu d'une location de salle à fonds perdus, KINTESSENS propose un partenariat commercial garantissant un volume de consommateurs captifs sur 7 dates annuelles — permettant de négocier une mise à disposition de l'infrastructure à tarif compétitif, voire gratuite.</li>
+            <li><strong>Fidélisation de la chaîne logistique :</strong> En garantissant une récurrence d'activité aux fournisseurs techniques (son, lumière, captation), KINTESSENS devient un client grand compte pouvant exiger des standards internationaux et des tarifs préférentiels sur toute la saison.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB BRAND MEDIA -->
+    <div id="tab-brand" class="tab-content">
+      <div class="callout mb-24">
+        <div class="callout-label">Repositionnement Brand</div>
+        <p>Dans l'économie moderne des industries créatives, la valeur réside dans la <strong>propriété des contenus</strong>. KINTESSENS passe du statut d'organisateur d'événements à celui de <strong>propriétaire d'une franchise média</strong> — une IP (Intellectual Property) hautement valorisable à l'échelle panafricaine.</p>
+      </div>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>Création d'une IP Média à Forte Valeur</h4>
+          <ul class="styled-list">
+            <li><strong>Catalogue d'actifs immatériels croissants :</strong> Chaque saison génère +6 heures de contenu TV de niveau international et des dizaines d'heures de rushs exclusifs. Si une jeune pousse révélée lors du Live 2 explose internationalement 2 ans plus tard, KINTESSENS possède les images exclusives de ses débuts — actif monétisable auprès de diffuseurs ou plateformes de streaming.</li>
+            <li><strong>Identité Premium :</strong> En maîtrisant la post-production (storytelling standard AGT, étalonnage soigné, qualité sonore studio), KINTESSENS s'impose comme le label de référence de l'excellence culturelle en Afrique de l'Ouest. Cette réputation rejaillit directement sur la valeur perçue du KINTESSENS FESTIVAL.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Stratégie Snack Content — Viralité Organique (Atomisation)</h4>
+          <ul class="styled-list">
+            <li>Un seul épisode TV de 52 minutes est une mine d'or digitale. La post-production extrait systématiquement des dizaines de formats courts : portraits 1 min 30 (empathie sur TikTok/Instagram), climax 3 min des meilleures performances (partages massifs WhatsApp), coulisses et réactions des têtes d'affiche (crédibilité LinkedIn/Facebook).</li>
+            <li><strong>La Diaspora comme Amplificateur :</strong> La diaspora africaine est friande de contenus culturels premium valorisant le dynamisme du continent. Ces segments de haute qualité sur YouTube génèrent des revenus AdSense en euros/dollars, capturant une audience internationale à forte valeur publicitaire.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Storytelling comme Moteur de Rétention — L'Effet Série</h4>
+          <ul class="styled-list">
+            <li><strong>Rendez-vous médiatique régulier :</strong> La diffusion TV à mi-chemin entre deux Lives + les contenus digitaux créent une occupation permanente de l'espace médiatique. Débats en ligne, mini-interviews des résidents du Lab, sondages en Stories — la conversation ne s'arrête jamais.</li>
+            <li><strong>Construction des Fanbases :</strong> Le fil rouge narratif permet au public digital de s'attacher aux artistes shortlistés bien avant la finale. Lorsque le Live 7 arrive, l'engagement de la communauté en ligne est à son paroxysme — garantissant une audience record.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Branded Content Organique Non-Skippable pour les Sponsors</h4>
+          <ul class="styled-list">
+            <li><strong>Intégration "Organic & Non-Skippable" :</strong> Les logos et messages des sponsors ne sont pas des publicités intrusives. Ils sont intégrés dans le décor physique, mentionnés par le MC, et font partie intégrante des portraits vidéo des artistes (ex: le sponsor qui rend visite à l'artiste lors de ses répétitions au Lab).</li>
+            <li><strong>ROI exponentiel via la viralité :</strong> Lorsqu'un clip d'une performance devient viral sur TikTok (potentiellement +1 M de vues), le logo du sponsor incrusté bénéficie d'une visibilité organique massive et gratuite, augmentant de façon exponentielle le retour sur investissement initial du partenariat.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONCLUSION ===== -->
+  <section id="conclusion">
+    <div class="section-header" style="margin-bottom:32px;">
+      <div class="section-num" style="color:rgba(255,255,255,0.06);">09</div>
+      <div class="section-title-wrap">
+        <div class="section-eyebrow">Recommandation Finale</div>
+        <h2>Conclusion Générale</h2>
+      </div>
+    </div>
+
+    <p>En opérant ce pivot stratégique majeur — centré sur l'excellence de l'expérience physique et la puissance de frappe d'une <strong>Brand-Media Factory</strong> —, KINTESSENS LIVE embrasse un modèle économique d'une résilience inédite dans le paysage des industries culturelles ouest-africaines. Ce dispositif s'impose bien au-delà d'un simple enchaînement de spectacles à Dakar : il s'agit d'une <strong>infrastructure de soft-power</strong>, d'un incubateur de carrières à risques maîtrisés et d'un modèle d'impact social circulaire unique en Afrique de l'Ouest.</p>
+
+    <p>En transformant la scène physique en un actif média hautement valorisable, le projet sécurise ses flux de trésorerie — via la billetterie, le Revenue Sharing F&B et la vente de droits TV — tout en offrant aux partenaires B2B un retour sur investissement narratif et continu que les formats événementiels classiques ne peuvent pas proposer. Fidèle à sa ligne éthique, KINTESSENS LIVE démontre qu'une industrie culturelle africaine premium peut s'autofinancer, pérenniser ses jeunes pousses de manière digne et lissée, et bâtir un pont mémorable entre les talents locaux, la diaspora et le public global.</p>
+
+    <p>Cette saison de 7 Lives pose les <strong>fondations durables et vertueuses</strong> qui viendront nourrir, année après année, le rayonnement et la programmation majeure du KINTESSENS FESTIVAL — son aboutissement naturel et son ambition panafricaine ultime.</p>
+
+    <div class="conclusion-pillars">
+      <div class="conclusion-pillar">
+        <div class="conclusion-pillar-icon">🏗️</div>
+        <h4>Infrastructure de Soft-Power</h4>
+        <p>Une plateforme culturelle à forte charge identitaire panafricaine, capitalisable saison après saison en actifs immatériels et en réputation institutionnelle.</p>
+      </div>
+      <div class="conclusion-pillar">
+        <div class="conclusion-pillar-icon">🌀</div>
+        <h4>Modèle d'Impact Circulaire</h4>
+        <p>Le Split Solidaire de 10%, le lissage de la dotation et les Warm-ups rémunérés créent une économie circulaire où chaque FCFA généré irrigue l'ensemble de l'écosystème artistique.</p>
+      </div>
+      <div class="conclusion-pillar">
+        <div class="conclusion-pillar-icon">📡</div>
+        <h4>Franchise Média Panafricaine</h4>
+        <p>7 épisodes de 52 minutes par saison constituent un catalogue IP valorisable auprès des diffuseurs TV, des plateformes de streaming et des marques à l'échelle du continent et de la diaspora mondiale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEGAL FOOTER ===== -->
+  <div class="legal-footer">
+    <div class="firm">Équipe Brand, Média & Digital</div>
+    <div class="disclaimer">Le présent document constitue une note d'orientation stratégique confidentielle, établie à l'attention du Conseil d'Administration de KINTESSENS LIVE. © 2026 — Tous droits réservés.</div>
+  </div>
+
+</div>
+
+<script>
+  // Tab switching
+  function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ===== AUDIO PLAYER =====
+  const audio = document.getElementById('kintessens-audio');
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const timeDisplay = document.getElementById('timeDisplay');
+  const progressFill = document.getElementById('progressFill');
+  const progressThumb = document.getElementById('progressThumb');
+
+  function fmt(s) {
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  }
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+      playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    } else {
+      audio.pause();
+      playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    }
+  }
+
+  function setVolume(v) { audio.volume = v; }
+
+  function seekAudio(e) {
+    const rect = document.getElementById('progressWrap').getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    audio.currentTime = ratio * audio.duration;
+  }
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressFill.style.width = pct + '%';
+    progressThumb.style.left = pct + '%';
+    timeDisplay.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+  });
+
+  audio.addEventListener('ended', () => {
+    playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    progressFill.style.width = '0%';
+    progressThumb.style.left = '0%';
+  });
+
+  audio.addEventListener('loadedmetadata', () => {
+    timeDisplay.textContent = '0:00 / ' + fmt(audio.duration);
+  });
+  const sections = document.querySelectorAll('section[id], div[id="impacts"]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
